@@ -19,6 +19,8 @@ constructor(private http:HttpClient, private router:Router){}
 register(){
 
   const formdata=new FormData();
+  formdata.append("name",this.registerModel.name);
+  formdata.append("name",this.registerModel.file, this.registerModel.file.name)
   this.http.post("https://localhost:7144/api/Auth/Register",formdata).subscribe(resp=>{
     
     this.router.navigateByUrl("/login")
@@ -27,6 +29,7 @@ register(){
 
 setImage(event:any){
   console.log(event)
+  this.registerModel.file=event.target.files[0];
 }
 
 
