@@ -17,8 +17,8 @@ constructor(private http:HttpClient, private router:Router){}
 
 login(){
   this.http.get("https://localhost:7144/api/Auth/Login?name="+this.name).subscribe(resp=>{
-    localStorage.setItem("accesstoken",JSON.stringify(resp));
-    this.router.navigateByUrl("/")
+    localStorage.setItem("accesstoken",JSON.stringify(resp));    
+    this.router.navigateByUrl("home")
   })
 }
 
