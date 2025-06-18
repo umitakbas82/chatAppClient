@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterModelDTO } from '../../models/registerModelDTO';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +12,21 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-register:RegisterModelDTO= new RegisterModelDTo
+registerModel:RegisterModelDTO= new RegisterModelDTO
 
 constructor(private http:HttpClient, private router:Router){}
 
-login(){
-  this.http.get("https://localhost:7144/api/Auth/Login?name="+this.name).subscribe(resp=>{
-    localStorage.setItem("accesstoken",JSON.stringify(resp));
-    this.router.navigateByUrl("/")
+register(){
+
+  const formdata=new FormData();
+  this.http.post("https://localhost:7144/api/Auth/Register",formdata).subscribe(resp=>{
+    
+    this.router.navigateByUrl("/login")
   })
+}
+
+setImage(event:any){
+  console.log(event)
 }
 
 
