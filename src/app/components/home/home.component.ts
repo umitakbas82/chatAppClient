@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { UserModelDTO } from '../../models/userModelDTO';
 import { chatModelDTO } from '../../models/chatModelDTO';
 import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
