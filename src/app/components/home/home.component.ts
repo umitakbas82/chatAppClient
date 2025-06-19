@@ -19,14 +19,20 @@ selectedUser:UserModelDTO= new UserModelDTO();
 
 user=new UserModelDTO();
 
-constructor(private http:HttpClient){}
+constructor(private http:HttpClient){
+  this.user=JSON.parse(localStorage.getItem("accessToken")??"")
+}
   
 logout(){
   localStorage.clear();
   document.location.reload()
 }
 
-getUsers(){}
+getUsers(){
+  this.http.get<UserModelDTO[]>('https://localhost:7144/api/Chats/GetUsers').subscribe(resp=>{
+    this.users=resp.filter(p=>p.id!=this.user.id)
+  })
+}
 
 
 
