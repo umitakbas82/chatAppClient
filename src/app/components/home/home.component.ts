@@ -16,11 +16,12 @@ users:UserModelDTO[]=[];
 chats:chatModelDTO[]=[];
 selectedUserID:string="";
 selectedUser:UserModelDTO= new UserModelDTO();
-
+message: string = "";  
 user=new UserModelDTO();
 
 constructor(private http:HttpClient){
-  this.user=JSON.parse(localStorage.getItem("accessToken")??"")
+  this.user = JSON.parse(localStorage.getItem("accessToken") ?? "");
+    this.getUsers();
 }
   
 logout(){
@@ -31,7 +32,10 @@ logout(){
 getUsers(){
   this.http.get<UserModelDTO[]>('https://localhost:7144/api/Chats/GetUsers').subscribe(resp=>{
     this.users=resp.filter(p=>p.id!=this.user.id)
+   
   })
+
+  console.log(this.users)
 }
 
 
@@ -44,6 +48,20 @@ changeUser(user:UserModelDTO){
     this.chats = res;
   });
 }
+
+sendMessage(){
+  const data ={
+    "userId": this.user.id,
+    "toUserId": this.selectedUserID,
+    "message": this.message
+  }
+  this.http.post<chatModelDTO>("https://localhost:7123/api/Chats/SendMessage",data).subscribe(
+    (res)=> {
+      this.chats.push(res);
+      this.message = "";
+  });
+}
+
 
 
 }
