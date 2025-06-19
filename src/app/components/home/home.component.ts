@@ -4,6 +4,7 @@ import { chatModelDTO } from '../../models/chatModelDTO';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,14 +20,15 @@ selectedUser:UserModelDTO= new UserModelDTO();
 message: string = "";  
 user=new UserModelDTO();
 
-constructor(private http:HttpClient){
-  this.user = JSON.parse(localStorage.getItem("accessToken") ?? "");
+constructor(private http:HttpClient, private router:Router){
+  // this.user = JSON.parse(localStorage.getItem("accessToken") ?? "");
     this.getUsers();
 }
   
 logout(){
   localStorage.clear();
-  document.location.reload()
+  //document.location.reload()
+  this.router.navigateByUrl("/login")
 }
 
 getUsers(){
